@@ -139,21 +139,22 @@ const CONFIG = {
   posters: {
     featured: {
       type: "image",
-      title: "Mythology Poster Cover",
-      category: "Poster Design",
+      title: "ICANITS 2026 — Customised Water Bottles",
+      category: "ICANITS 2026 · Packaging & Merchandise",
       aspect: "4:5",
-      src: "media/d-mythology-cover.jpg",
-      full: "media/d-mythology-cover.jpg",
-      badge: "Featured Poster"
+      src: "media/icanits-bottles-group.jpg",
+      full: "media/icanits-bottles-group.jpg",
+      link: "https://www.instagram.com/p/DaVo4kfj1Rn/?utm_source=ig_web_copy_link&mdxt=NTc4MTIwNjQ2YQ==",
+      badge: "ICANITS 2026"
     },
     items: [
-      { type: "image", title: "Mythology Poster Cover", category: "Poster Design", aspect: "4:5", src: "media/d-mythology-cover.jpg", full: "media/d-mythology-cover.jpg" },
-      { type: "image", title: "Character Concept Poster", category: "Poster Design", aspect: "4:5", src: "media/d-character.jpg", full: "media/d-character.jpg" },
-      { type: "image", title: "Character Model Sheet", category: "Poster Design", aspect: "16:9", src: "media/d-character-sheet.jpg", full: "media/d-character-sheet.jpg" },
-      { type: "image", title: "Digital Concept Artwork", category: "Poster Design", aspect: "4:5", src: "media/d-character-laptop.jpg", full: "media/d-character-laptop.jpg" },
-      { type: "image", title: "Cinematic Film Grade", category: "Poster Design", aspect: "16:9", src: "media/d-grade.jpg", full: "media/d-grade.jpg" },
-      { type: "image", title: "Teal & Orange Grade", category: "Poster Design", aspect: "16:9", src: "media/d-grade-teal.jpg", full: "media/d-grade-teal.jpg" },
-      { type: "image", title: "App Icon & Brand Visual", category: "Poster Design", aspect: "1:1", src: "media/d-app-icon.jpg", full: "media/d-app-icon.jpg" }
+      { type: "image", title: "ICANITS 2026 — Customised Water Bottles (Suite)", category: "ICANITS 2026 · Packaging & Merchandise", aspect: "4:5", src: "media/icanits-bottles-group.jpg", full: "media/icanits-bottles-group.jpg", link: "https://www.instagram.com/p/DaVo4kfj1Rn/?utm_source=ig_web_copy_link&mdxt=NTc4MTIwNjQ2YQ==" },
+      { type: "image", title: "ICANITS 2026 — Customised Water Bottles (Single)", category: "ICANITS 2026 · Packaging & Merchandise", aspect: "4:5", src: "media/icanits-bottle-single.jpg", full: "media/icanits-bottle-single.jpg", link: "https://www.instagram.com/p/DaVo4kfj1Rn/?utm_source=ig_web_copy_link&mdxt=NTc4MTIwNjQ2YQ==" },
+      { type: "image", title: "ICANITS 2026 — Customised Mementos", category: "ICANITS 2026 · Memento Design", aspect: "4:5", src: "media/icanits-mementos.jpg", full: "media/icanits-mementos.jpg", link: "https://www.instagram.com/p/DaVo4kfj1Rn/?utm_source=ig_web_copy_link&mdxt=NTc4MTIwNjQ2YQ==" },
+      { type: "image", title: "ICANITS 2026 — Official Conference Note Pad", category: "ICANITS 2026 · Print Collateral", aspect: "4:5", src: "media/icanits-notepad.jpg", full: "media/icanits-notepad.jpg", link: "https://www.instagram.com/p/DaVo4kfj1Rn/?utm_source=ig_web_copy_link&mdxt=NTc4MTIwNjQ2YQ==" },
+      { type: "image", title: "ICANITS 2026 — Customised Name Badges", category: "ICANITS 2026 · Dignitary Badges", aspect: "4:5", src: "media/icanits-badges.jpg", full: "media/icanits-badges.jpg", link: "https://www.instagram.com/p/DaVo4kfj1Rn/?utm_source=ig_web_copy_link&mdxt=NTc4MTIwNjQ2YQ==" },
+      { type: "image", title: "ICANITS 2026 — Customised ID Cards & Lanyards", category: "ICANITS 2026 · ID Design", aspect: "4:5", src: "media/icanits-idcard.jpg", full: "media/icanits-idcard.jpg", link: "https://www.instagram.com/p/DaVo4kfj1Rn/?utm_source=ig_web_copy_link&mdxt=NTc4MTIwNjQ2YQ==" },
+      { type: "image", title: "ICANITS 2026 — Conference Stage Banner", category: "ICANITS 2026 · Stage Banner", aspect: "4:5", src: "media/icanits-banner.jpg", full: "media/icanits-banner.jpg", link: "https://www.instagram.com/p/DaVo4kfj1Rn/?utm_source=ig_web_copy_link&mdxt=NTc4MTIwNjQ2YQ==" }
     ]
   },
 
@@ -367,7 +368,12 @@ const CONFIG = {
 
     $("#lbIdx").textContent = String(cur + 1).padStart(2, "0") + " / " + String(playlist.length).padStart(2, "0");
     $("#lbTitle").textContent = w.title;
-    $("#lbCat").textContent = w.category || "";
+    const catEl = $("#lbCat");
+    if (w.link) {
+      catEl.innerHTML = `${w.category || ""} · <a href="${w.link}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline;">View on Instagram ↗</a>`;
+    } else {
+      catEl.textContent = w.category || "";
+    }
 
     if (lb.hidden) {
       lastFocus = document.activeElement;
@@ -440,11 +446,16 @@ const CONFIG = {
       `;
     }
 
+    const linkBadge = item.link ? `<a href="${item.link}" target="_blank" rel="noopener" class="card-ext-link mono" onclick="event.stopPropagation();" title="View on Instagram" style="color:var(--accent);font-size:11px;text-decoration:none;display:inline-flex;align-items:center;gap:3px;margin-top:4px;">Instagram ↗</a>` : "";
+
     el.innerHTML = `
       ${mediaHtml}
       <div class="card-info">
         <h4 class="card-title">${item.title}</h4>
-        <span class="card-meta mono">${catName}</span>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span class="card-meta mono">${catName}</span>
+          ${linkBadge}
+        </div>
       </div>
     `;
 
@@ -494,11 +505,16 @@ const CONFIG = {
       `;
     }
 
+    const featExtLink = item.link ? `<a href="${item.link}" target="_blank" rel="noopener" class="featured-ext-link mono" onclick="event.stopPropagation();" title="View on Instagram" style="color:var(--accent);font-size:12px;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">Instagram ↗</a>` : "";
+
     wrap.innerHTML = `
       ${mediaHtml}
       <div class="featured-details">
         <h4 class="featured-title">${item.title}</h4>
-        <span class="featured-sub mono">${catName} · Tap to expand</span>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+          <span class="featured-sub mono">${catName} · Tap to expand</span>
+          ${featExtLink}
+        </div>
       </div>
     `;
 
